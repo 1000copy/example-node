@@ -11,6 +11,14 @@ global.dbHelper = require( './common/dbHelper' );
 
 global.db = mongoose.connect("mongodb://127.0.0.1:27017/test1");
 
+var cookieSession = require('cookie-session')
+
+app.use(cookieSession({
+  name: 'session',////
+  keys: ['key1', 'key2']
+}))
+
+
 app.use(session({
     secret:'secret',
     cookie:{
