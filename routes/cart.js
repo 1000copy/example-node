@@ -14,27 +14,33 @@ module.exports = function ( app ) {
     //添加购物车商品
     app.get("/addToCart/:id", function(req, res) {
        //req.params.id 获取商品ID号
-       console.log("put me in")
-            
+
         if(!req.session.user){
             req.session.error = "用户已过期，请重新登录:"
             res.redirect('/login');
         }else{
+            console.log("put me in1")
+       
             var Commodity = global.dbHelper.getModel('commodity'),
                 Cart = global.dbHelper.getModel('cart');
             Cart.findOne({"uId":req.session.user._id, "cId":req.params.id},function(error,doc){
                 //商品已存在 +1
+                console.log("put me in2")
                 if(doc){
+                    console.log("put me in3")
                     Cart.update({"uId":req.session.user._id, "cId":req.params.id},{$set : { cQuantity : doc.cQuantity + 1 }},function(error,doc){
                         //成功返回1  失败返回0
+                        console.log("put me in7")
                         if(doc > 0){
                             res.redirect('/home');
                         }
                     });
                 //商品未存在，添加
                 }else{
+                    console.log("put me in4")
                     Commodity.findOne({"_id": req.params.id}, function (error, doc) {
                         if (doc) {
+                            console.log("put me in5")
                             Cart.create({
                                 uId: req.session.user._id,
                                 cId: req.params.id,
@@ -44,6 +50,7 @@ module.exports = function ( app ) {
                                 cQuantity : 1
                             },function(error,doc){
                                 if(doc){
+
                                     res.redirect('/home');
                                 }
                             });
