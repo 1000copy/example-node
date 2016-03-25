@@ -14,6 +14,8 @@ module.exports = function ( app ) {
     //添加购物车商品
     app.get("/addToCart/:id", function(req, res) {
        //req.params.id 获取商品ID号
+       console.log("put me in")
+            
         if(!req.session.user){
             req.session.error = "用户已过期，请重新登录:"
             res.redirect('/login');
