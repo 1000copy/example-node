@@ -16,7 +16,7 @@ module.exports = function ( app ) {
     app.post('/addcommodity', function (req, res) {
         var Commodity = global.dbHelper.getModel('commodity');
         Commodity.create({
-            name: req.body.name,
+            name: req.body.name,//
             price: req.body.price,
             imgSrc: req.body.imgSrc
         }, function (error, doc) {
